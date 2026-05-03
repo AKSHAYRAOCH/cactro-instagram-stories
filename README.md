@@ -1,75 +1,56 @@
-# React + TypeScript + Vite
+# Cactro Instagram Stories
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simplified Instagram Stories clone built with React and TypeScript. View a series of stories with tap navigation and auto-advance — built for mobile.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [cactro-stories.pages.dev](https://cactro-stories.pages.dev)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Story List** — Horizontally scrollable list of story thumbnails with gradient borders
+- **Full-Screen Viewer** — Tap any story to open it in a full-screen mobile viewer
+- **Tap Navigation** — Tap left side to go to previous story, right side to go to next
+- **Auto-Advance** — Stories automatically advance after 5 seconds with a progress bar
+- **Image Loading States** — Spinner shown while each story image loads
+- **External Data** — Stories are fetched from an external JSON file
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Tech Stack
 
-Note: This will impact Vite dev & build performances.
+- **React 19** — UI framework
+- **TypeScript** — Type safety
+- **Tailwind CSS** — Styling
+- **Vite** — Build tool
+- **Cloudflare Pages** — Deployment
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Clone the repository
+git clone <repo-url>
+cd cactro-instagram-stories
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Install dependencies
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Start the dev server
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/
+│   └── StoryViewer.tsx   # Main story viewer component
+├── App.tsx               # Root component
+├── main.tsx              # Entry point
+├── index.css             # Global styles + Tailwind
+public/
+└── stories.json          # External story data
+```
+
+## Deployment
+
+Deployed on **Cloudflare Pages**. Every push to `main` triggers an automatic deployment.
