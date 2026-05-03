@@ -11,9 +11,6 @@ export default function StoryViewer() {
   const [progress, setProgress] = useState(0)
   const [imageLoading, setImageLoading] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
-  const startX = useRef(0)
-  const scrollStart = useRef(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startTimeRef = useRef(Date.now())
 
@@ -72,26 +69,6 @@ export default function StoryViewer() {
     }
   }, [storyIndex, isOpen, goToNext])
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return
-    if ((e.target as HTMLElement).closest('button')) return
-    isDragging.current = true
-    startX.current = e.pageX
-    scrollStart.current = scrollRef.current.scrollLeft
-    scrollRef.current.style.cursor = 'grabbing'
-  }
-
-  const handleMouseUp = () => {
-    isDragging.current = false
-    if (scrollRef.current) scrollRef.current.style.cursor = 'grab'
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !scrollRef.current) return
-    const walk = (e.pageX - startX.current) * 1.5
-    scrollRef.current.scrollLeft = scrollStart.current - walk
-  }
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -126,11 +103,7 @@ export default function StoryViewer() {
         <div
           ref={scrollRef}
           className="flex gap-4 overflow-x-auto scroll-smooth pb-2 flex-nowrap scrollbar-hide"
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          style={{ WebkitOverflowScrolling: 'touch', cursor: 'grab', scrollbarWidth: 'none' }}
+          style={{ scrollbarWidth: 'none' }}
         >
           {stories.map((story: any, i: number) => (
             <button
